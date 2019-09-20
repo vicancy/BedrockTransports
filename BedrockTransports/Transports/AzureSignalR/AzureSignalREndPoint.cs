@@ -24,7 +24,7 @@ namespace BedrockTransports
             string port = null;
             if (isNewEndpoint)
             {
-                _endpointPath = "/endpoint";
+                _endpointPath = "/ws";
             }
             foreach (var item in connectionString.Split(';', StringSplitOptions.RemoveEmptyEntries))
             {
@@ -54,7 +54,7 @@ namespace BedrockTransports
             }
             else if (type == AzureSignalREndpointType.Client)
             {
-                Uri = new Uri($"{endpoint}{port}{_endpointPath}/client/?hub={hubName}");
+                Uri = new Uri($"{endpoint}{port}{_endpointPath}/client/?hub={hubName}&subProtocol=mqtt&transferFormat=binary");
                 AccessToken = GenerateClientAccessToken(accessKey, endpoint, hubName);
             }
         }
