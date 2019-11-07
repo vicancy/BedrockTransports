@@ -12,10 +12,10 @@ namespace BedrockTransports
         private readonly ILoggerFactory _loggerFactory;
         private readonly bool _isNewEndpoint;
 
-        public AzureSignalRConnectionListenerFactory(ILoggerFactory loggerFactory, bool isNewEndpoint)
+        public AzureSignalRConnectionListenerFactory(ILoggerFactory loggerFactory)
         {
             _loggerFactory = loggerFactory;
-            _isNewEndpoint = isNewEndpoint;
+            _isNewEndpoint = true;
         }
 
         public async ValueTask<IConnectionListener> BindAsync(EndPoint endpoint, CancellationToken cancellationToken = default)

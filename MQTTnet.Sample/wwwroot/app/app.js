@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var mqtt_1 = require("mqtt");
-var client = mqtt_1.connect('ws://' + location.host + '/mqtt', {
+var client = mqtt_1.connect('ws://localhost:8080/ws/client/?hub=chat&subProtocol=mqtt&transferFormat=binary&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE1Njg5NjY3ODksImV4cCI6MTU2ODk3MDM4OSwiaWF0IjoxNTY4OTY2Nzg5LCJhdWQiOiJodHRwOi8vbG9jYWxob3N0L3dzL2NsaWVudC8_aHViPWNoYXQifQ.6Zyi0nEAVhVR4GBG-ZCMTnuGfz3z8Cso55JFtI8DnBM', {
     clientId: "client" + Math.floor(Math.random() * 6) + 1
 });
 window.onbeforeunload = function () {

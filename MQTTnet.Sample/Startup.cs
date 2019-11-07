@@ -44,22 +44,22 @@ namespace MQTTnet.TestApp.AspNetCore2
                         .WithTopic("message");
                     _ = Task.Run(async () =>
                     {
-                        //while (true)
-                        //{
-                        //    try
-                        //    {
-                        //        await inner.PublishAsync(msg.Build());
-                        //        msg.WithPayload("Mqtt is still awesome at " + DateTime.Now);
-                        //    }
-                        //    catch (Exception e)
-                        //    {
-                        //        Console.WriteLine(e);
-                        //    }
-                        //    finally
-                        //    {
-                        //        await Task.Delay(TimeSpan.FromSeconds(2));
-                        //    }
-                        //}
+                        while (true)
+                        {
+                            try
+                            {
+                                await inner.PublishAsync(msg.Build());
+                                msg.WithPayload("Mqtt is still awesome at " + DateTime.Now);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
+                            finally
+                            {
+                                await Task.Delay(TimeSpan.FromSeconds(2));
+                            }
+                        }
                     });
                 });
             }
@@ -95,18 +95,6 @@ namespace MQTTnet.TestApp.AspNetCore2
             {
                 RequestPath = "/node_modules",
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "node_modules"))
-            });
-
-            app.UseRouting();
-
-            app.UseEndpoints(builder =>
-            {
-                builder.MapConnectionHandler<MqttConnectionHandler>("/mqtt",
-                    options =>
-                    {
-                        options.WebSockets.SubProtocolSelector =
-                            MQTTnet.AspNetCore.ApplicationBuilderExtensions.SelectSubProtocol;
-                    });
             });
         }
     }

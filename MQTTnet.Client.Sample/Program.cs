@@ -33,9 +33,9 @@ namespace MQTTnet.Client.Sample
                 builder.AddConsole();
             });
 
-            (var serverFactory, var clientFactory, var serverEndPoint, var clientEndPoint) = BedrockTransports.Program.GetAzureSignalRTransport(loggerFactory);
-            // (var serverFactory, var clientFactory, var serverEndPoint, var clientEndPoint) = GetAzureSignalRTransport(loggerFactory);
-            // (var serverFactory, var clientFactory, var serverEndPoint, var clientEndPoint) = GetNamedPipesTransport(loggerFactory);
+            var clientFactory = new AzureSignalRConnectionFactory(loggerFactory, true);
+            var clientEndPoint = new AzureSignalREndPoint("Endpoint=http://localhost;AccessKey=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789;Port=8080;Version=1.0"
+                , "chat", AzureSignalREndpointType.Client, true);
 
             var clientTask = ClientTest.RunAsync(clientEndPoint);
 
@@ -61,7 +61,7 @@ namespace MQTTnet.Client.Sample
                                     throw new NotSupportedException($"{endpoint} is not supported");
                                 }
 
-                                o.Uri = azEndpoint.Uri.ToString().Replace("http://", "ws://");//"localhost:5001/mqtt"; // azEndpoint.Uri.AbsoluteUri;
+                                o.Uri = azEndpoint.Uri.ToString().Replace("https://", "wss://");//"localhost:5001/mqtt"; // azEndpoint.Uri.AbsoluteUri;
                                 //o.Uri = "localhost:5001/mqtt"; // azEndpoint.Uri.AbsoluteUri;
                                 o.RequestHeaders = new Dictionary<string, string>();
                                 o.RequestHeaders["Authorization"] = $"Bearer {azEndpoint.AccessToken}";

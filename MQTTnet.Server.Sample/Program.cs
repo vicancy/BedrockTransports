@@ -14,6 +14,7 @@ using MQTTnet.Client.Receiving;
 using MQTTnet.Diagnostics;
 using MQTTnet.Formatter;
 using MQTTnet.Implementations;
+using BedrockTransports;
 
 namespace MQTTnet.Server.Sample
 {
@@ -59,11 +60,13 @@ namespace MQTTnet.Server.Sample
 
             var handler = provider.GetRequiredService<MqttConnectionHandler>();
 
-            (var serverFactory, var clientFactory, var serverEndPoint, var clientEndPoint) = BedrockTransports.Program.GetAzureSignalRTransport(loggerFactory);
+            var server = new AzureSignalRConnectionListenerFactory(loggerFactory, true);
+            var endpoint = new AzureSignalREndPoint("Endpoint=http://localhost;AccessKey=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789;Port=8080;Version=1.0;"
+                , "chat", AzureSignalREndpointType.Server, true);
             
             // Connect to the server endpoint
-            var listener = await serverFactory.BindAsync(serverEndPoint);
-            Console.WriteLine($"Listening on {serverEndPoint}");
+            var listener = await server.BindAsync(endpoint);
+            Console.WriteLine($"Listening on {endpoint}");
 
             var serverTask = RunServerAsync(handler, listener, token);
 

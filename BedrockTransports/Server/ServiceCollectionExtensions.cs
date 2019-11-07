@@ -26,7 +26,7 @@ namespace BedrockTransports
         public static IServiceCollection AddAzureSignalRListener(this IServiceCollection services, string connectionString, string hub, Action<IConnectionBuilder> serverApplication)
         {
             return services.AddServerApplication<AzureSignalRConnectionListenerFactory>(
-                new AzureSignalREndPoint(connectionString, hub, AzureSignalREndpointType.Server),
+                new AzureSignalREndPoint(connectionString, hub, AzureSignalREndpointType.Server, true),
                 serverApplication);
         }
 

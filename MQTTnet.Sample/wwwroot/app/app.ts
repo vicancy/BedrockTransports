@@ -1,7 +1,8 @@
 ﻿import { connect } from "mqtt";
 
-var client = connect('ws://' + location.host + '/mqtt',
+var client = connect('ws://localhost:8080/ws/client/?hub=chat&subProtocol=mqtt&transferFormat=binary',
     {
+            
         clientId: "client" + Math.floor(Math.random() * 6) + 1
     });
 
